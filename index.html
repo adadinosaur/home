@@ -221,17 +221,77 @@
             color: var(--text-main);
             padding: 10px 20px;
             cursor: pointer;
-            margin: 0 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             font-family: var(--font-head);
             transition: 0.3s;
         }
-        
-        .btn-nav:hover { background: var(--text-main); color: #000; }
 
-        /* --- Tokenomics Section --- */
-        .tokenomics {
-            padding: 100px 10%;
-            background: linear-gradient(to bottom, var(--bg-dark), #0a0a0a);
+        .btn-nav:hover {
+            border-color: var(--neon-blue);
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.6);
+        }
+
+        /* --- Dino Survivor CTA --- */
+        .game-section {
+            padding: 120px 5%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(0, 243, 255, 0.08), transparent 80%);
+        }
+
+        .game-content {
+            max-width: 900px;
+            padding: 60px 80px;
+            background: rgba(10, 10, 15, 0.9);
+            border: 1px solid var(--neon-blue);
+            border-radius: 25px;
+            box-shadow: 0 0 40px rgba(0, 243, 255, 0.15);
+        }
+
+        .game-title {
+            font-family: var(--font-head);
+            font-size: 3rem;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+        }
+
+        .game-desc {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .btn-play {
+            display: inline-block;
+            padding: 16px 50px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            color: #050505;
+            font-family: var(--font-head);
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            box-shadow: 0 0 25px rgba(188, 19, 254, 0.35);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-play:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 35px rgba(0, 243, 255, 0.45);
+        }
+
+        .hero-cta {
+            margin-top: 40px;
+        }
+
+        .game-content .btn-play {
+            margin-top: 35px;
         }
 
         .token-grid {
@@ -414,6 +474,10 @@
             .carousel-container { width: 220px; height: 350px; }
             .input-group { flex-direction: column; }
             .btn-claim { padding: 15px; }
+            .game-content { padding: 40px 25px; }
+            .game-title { font-size: 2.2rem; }
+            .game-desc { font-size: 1rem; }
+            .btn-play { width: 100%; }
         }
     </style>
 </head>
@@ -424,6 +488,7 @@
         <div class="logo">ADA<span>DINOSAUR</span></div>
         <div class="nav-links desktop-only">
             <a href="#gallery">Gallery</a>
+            <a href="#game">Game</a>
             <a href="#tokenomics">Tokenomics</a>
             <a href="#airdrop">Airdrop</a>
         </div>
@@ -433,6 +498,9 @@
     <header>
         <h1 class="hero-glitch">ADADINOSAUR</h1>
         <p class="hero-sub">10,000 Ancient clay dinosaurs forging the future on the Cardano Blockchain. Ride the ADA wave and guard the metaverse.</p>
+        <div class="hero-cta">
+            <a href="dinosurvivor/index.html" class="btn-play">Play Dino Survivor</a>
+        </div>
         <div class="scroll-indicator">
             <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
                 <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
@@ -475,6 +543,17 @@
         <div class="controls">
             <button class="btn-nav" onclick="rotateCarousel(-1)">PREV</button>
             <button class="btn-nav" onclick="rotateCarousel(1)">NEXT</button>
+        </div>
+    </section>
+
+    <!-- Game Section -->
+    <section id="game" class="game-section">
+        <div class="game-content">
+            <h2 class="game-title">DINO SURVIVOR</h2>
+            <p class="game-desc">
+                Survive the prehistoric onslaught! Battle waves of enemies, collect XP, and upgrade your dinosaur in this addictive rogue-lite survival game. How long can you last against the extinction event?
+            </p>
+            <a href="dinosurvivor/index.html" class="btn-play">PLAY NOW</a>
         </div>
     </section>
 
