@@ -225,16 +225,28 @@
 /* =========================================
    PRELOADER LOGIC
    ========================================= */
-window.onload = function() {
+function hidePreloader() {
+    const pre = document.getElementById('preloader');
+    if (!pre || pre.dataset.done) return;
+    pre.dataset.done = '1';
+    pre.style.opacity = '0';
     setTimeout(() => {
-        const pre = document.getElementById('preloader');
-        pre.style.opacity = '0';
-        setTimeout(() => {
-            pre.style.display = 'none';
-            document.getElementById('start-screen').style.display = 'flex';
-        }, 1000);
-    }, 2500); // Show logo for 2.5 seconds
-};
+        pre.style.display = 'none';
+        const start = document.getElementById('start-screen');
+        if (start) start.style.display = 'flex';
+    }, 1000);
+}
+
+function initPreloader() {
+    setTimeout(hidePreloader, 2500); // Show logo for 2.5 seconds
+}
+
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    initPreloader();
+} else {
+    window.addEventListener('load', initPreloader, { once: true });
+    document.addEventListener('DOMContentLoaded', initPreloader, { once: true });
+}
 
 /* =========================================
    ASSETS
@@ -290,17 +302,12 @@ let w, h;
 
 function resize() { 
     w = window.innerWidth; h = window.innerHeight;
-<<<<<<< HEAD
     const dpr = window.devicePixelRatio || 1;
     canvas.width = w * dpr; canvas.height = h * dpr;
     canvas.style.width = w + "px"; canvas.style.height = h + "px";
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    if (typeof ctx.setTransform === 'function') ctx.setTransform(1, 0, 0, 1, 0, 0);
+    else if (typeof ctx.resetTransform === 'function') ctx.resetTransform();
     ctx.scale(dpr, dpr);
-=======
-    canvas.width = w * window.devicePixelRatio; canvas.height = h * window.devicePixelRatio;
-    canvas.style.width = w + "px"; canvas.style.height = h + "px";
-    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
->>>>>>> f6eca58d437bea1acdd36ef667c2e8114a68b837
 }
 window.addEventListener('resize', resize);
 initAssets(); resize();
@@ -328,7 +335,6 @@ let gameTime = 0, kills = 0, bossSpawned = false;
 
 let player = {}, enemies = [], projectiles = [], gems = [], particles = [], texts = [], camera = {x:0, y:0}, keys = {};
 
-<<<<<<< HEAD
 function setKeyState(e, pressed) {
     const key = (e.key && e.key.length === 1) ? e.key.toLowerCase() : e.key;
     keys[key] = pressed;
@@ -336,10 +342,6 @@ function setKeyState(e, pressed) {
 
 window.addEventListener('keydown', e => setKeyState(e, true));
 window.addEventListener('keyup', e => setKeyState(e, false));
-=======
-window.addEventListener('keydown', e => keys[e.key] = true);
-window.addEventListener('keyup', e => keys[e.key] = false);
->>>>>>> f6eca58d437bea1acdd36ef667c2e8114a68b837
 
 const joyZone = document.getElementById('joystick-zone'), joyKnob = document.getElementById('joystick-knob');
 let joyData = { active: false, dx: 0, dy: 0 };
@@ -383,18 +385,12 @@ function loop(t) {
 
 function update(dt) {
     gameTime += dt;
-<<<<<<< HEAD
     const up = keys['w'] || keys['ArrowUp'];
     const down = keys['s'] || keys['ArrowDown'];
     const left = keys['a'] || keys['ArrowLeft'];
     const right = keys['d'] || keys['ArrowRight'];
     let dx = (right ? 1 : 0) - (left ? 1 : 0);
     let dy = (down ? 1 : 0) - (up ? 1 : 0);
-=======
-    let dx = 0, dy = 0;
-    if(keys['w'] || keys['ArrowUp']) dy = -1; if(keys['s'] || keys['ArrowDown']) dy = 1;
-    if(keys['a'] || keys['ArrowLeft']) dx = -1; if(keys['d'] || keys['ArrowRight']) dx = 1;
->>>>>>> f6eca58d437bea1acdd36ef667c2e8114a68b837
     if(joyData.active) { dx = joyData.dx; dy = joyData.dy; }
     if(dx || dy) { if(!joyData.active && (dx && dy)) { const l = Math.hypot(dx, dy); dx /= l; dy /= l; } player.x += dx*player.speed*dt; player.y += dy*player.speed*dt; if(dx) player.facing = Math.sign(dx); }
     camera.x += (player.x - w/2 - camera.x) * 5 * dt; camera.y += (player.y - h/2 - camera.y) * 5 * dt;
@@ -414,11 +410,7 @@ function update(dt) {
         else if(p.type === 'roar') { p.x = player.x; p.y = player.y; p.currentRadius = p.area * (1 - p.life/0.3); }
         else if(p.type === 'shield_rock') { p.hitIds = []; }
 
-<<<<<<< HEAD
         if(p.type !== 'meteor' && p.type !== 'lightning' && p.type !== 'lightning_seg') { 
-=======
-        if(p.type !== 'meteor' && p.type !== 'lightning') { 
->>>>>>> f6eca58d437bea1acdd36ef667c2e8114a68b837
             for(let e of enemies) {
                 let dist = Math.hypot(p.x - e.x, p.y - e.y);
                 let hitRadius = (p.type === 'roar' ? p.currentRadius : (p.type === 'explosion' || p.type === 'puddle' ? p.area : e.radius + 10));
@@ -621,8 +613,4 @@ function updateHUD() {
 function gameOver() { state=STATE.GAMEOVER; document.getElementById('gameover-screen').style.display='flex'; document.getElementById('final-time').innerText=document.getElementById('timer-display').innerText; document.getElementById('final-kills').innerText=kills; }
 </script>
 </body>
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> f6eca58d437bea1acdd36ef667c2e8114a68b837
